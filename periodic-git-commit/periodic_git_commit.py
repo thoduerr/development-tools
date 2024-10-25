@@ -22,7 +22,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 def log():
-    logger.debug(f" > {METHOD_NAME}")
+    logger.debug(f" > Hell
 
 def get_current_branch():
     METHOD_NAME = "get_current_branch"
