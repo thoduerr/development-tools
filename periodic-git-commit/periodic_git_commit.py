@@ -90,8 +90,6 @@ def generate_commit_message(diff_text, model_name):
             input_variables=["diff"],
             template="""Please summarize the following code changes into a clear and concise commit message. 
                         The commit message should accurately reflect the changes made and follow best practices.
-
-                        Return only the commit message, without any additional text or introduction.
                         
                         Examples:
 
@@ -102,6 +100,8 @@ def generate_commit_message(diff_text, model_name):
                         - "Remove unused import statements and clean up code style"
                         - "Implement password reset feature via email"
                         - "Upgrade project to use React 17"
+
+                        Important: Output only the commit message without any additional text or preamble.
 
                         Here are the changes:
                         {diff}
