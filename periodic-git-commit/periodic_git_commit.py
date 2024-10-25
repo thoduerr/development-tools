@@ -88,7 +88,13 @@ def generate_commit_message(diff_text, model_name):
 
         prompt_template = PromptTemplate(
             input_variables=["diff"],
-            template="Summarize the following changes for a short git commit message:\n{diff}"
+            template="Summarize the following changes for a short git commit message:\n\n " + \
+                "Examples: \n" + \
+                "- Added a new feature\n" + \
+                "- Fixed a bug in the code\n" + \
+                "- Updated documentation\n\n" + \
+                "Here is the diff on the\n" + \
+                "{diff}"
         )
 
         chain = LLMChain(llm=llm, prompt=prompt_template)
