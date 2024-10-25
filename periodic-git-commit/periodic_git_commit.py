@@ -9,11 +9,9 @@ import logging
 import os
 
 # Import LangChain modules
-from langchain.llms import ChatOllama
+from langchain.llms import Ollama
 from langchain.prompts import PromptTemplate
-from langchain.output_parsers import JsonOutputParser
-from langchain.schema import BasePromptTemplate
-from typing import Dict
+from langchain.chains import LLMChain
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -82,44 +80,41 @@ def generate_commit_message(diff_text, model_name):
         temperature = 0.0  # Adjust as needed
         logger.debug(f" >> {METHOD_NAME} model_name: {model_name}, temperature: {temperature}")
 
-        llm = ChatOllama(
+        llm = Ollama(
             model=model_name,
-            format="json",
+            base_url="http://localhost:11434",
             temperature=temperature,
         )
 
         prompt_template = PromptTemplate(
             input_variables=["diff"],
-            template="""As a senior software engineer, generate a clear and concise git commit message summarizing the following code changes.
-The commit message should accurately reflect the changes made and follow best practices.
+            template="""Please summarize the following code changes into a clear and concise commit message. 
+                        The commit message should accurately reflect the changes made and follow best practices.
+                        
+                        Examples:
 
-Examples:
+                        - "Fix login issue by correcting variable typo in authentication module"
+                        - "Add unit tests for user registration functionality"
+                        - "Refactor database connection logic for improved performance"
+                        - "Update README with installation instructions"
+                        - "Remove unused import statements and clean up code style"
+                        - "Implement password reset feature via email"
+                        - "Upgrade project to use React 17"
 
-- "Fix login issue by correcting variable typo in authentication module"
-- "Add unit tests for user registration functionality"
-- "Refactor database connection logic for improved performance"
-- "Update README with installation instructions"
-- "Remove unused import statements and clean up code style"
-- "Implement password reset feature via email"
-- "Upgrade project to use React 17"
+                        Important: Output ONLY the commit message without any additional text or preamble. Especially no 'Here is a possible summary for a git commit message:'
 
-Return the commit message as a JSON object like {"message": "produced commit message"}. Do not include any additional text.
-
-Here are the changes:
-{diff}
-"""
+                        Here are the changes:
+                        {diff}
+                        """
         )
 
-        chain = prompt_template | llm | JsonOutputParser()
+        chain = LLMChain(llm=llm, prompt=prompt_template)
         inputs = {"diff": diff_text}
         logger.debug(f" >> {METHOD_NAME} inputs: {inputs}")
 
-        result = chain.invoke(inputs)
-        logger.debug(f" < {METHOD_NAME} {result}")
-
-        commit_message = result.get("message", "").strip()
-        return commit_message
-
+        result = chain.run(inputs)
+        logger.debug(f" < {METHOD_NAME} {result[:30]}...")
+        return result.strip()
     except Exception as e:
         message = f" E ERROR: Unexpected error, caused by: '{e}'."
         logger.error(message)
