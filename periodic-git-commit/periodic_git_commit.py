@@ -7,6 +7,7 @@ import argparse
 import sys
 import logging
 import os
+import json
 
 # Import LangChain modules
 from langchain.llms import Ollama
@@ -86,26 +87,17 @@ def generate_commit_message(diff_text, model_name):
             temperature=temperature,
         )
 
+        # Updated prompt template
         prompt_template = PromptTemplate(
             input_variables=["diff"],
-            template="""Please summarize the following code changes into a clear and concise commit message. 
-                        The commit message should accurately reflect the changes made and follow best practices.
-                        
-                        Examples:
+            template="""As a senior software engineer, generate a clear and concise git commit message summarizing the following code changes.
+The commit message should accurately reflect the changes made and follow best practices.
 
-                        - "Fix login issue by correcting variable typo in authentication module"
-                        - "Add unit tests for user registration functionality"
-                        - "Refactor database connection logic for improved performance"
-                        - "Update README with installation instructions"
-                        - "Remove unused import statements and clean up code style"
-                        - "Implement password reset feature via email"
-                        - "Upgrade project to use React 17"
+Return the commit message as a JSON object like {"message": "produced commit message"}. Do not include any additional text.
 
-                        Important: Output ONLY the commit message without any additional text or preamble. Especially no 'Here is a possible summary for a git commit message:'
-
-                        Here are the changes:
-                        {diff}
-                        """
+Here are the changes:
+{diff}
+"""
         )
 
         chain = LLMChain(llm=llm, prompt=prompt_template)
@@ -113,8 +105,18 @@ def generate_commit_message(diff_text, model_name):
         logger.debug(f" >> {METHOD_NAME} inputs: {inputs}")
 
         result = chain.run(inputs)
-        logger.debug(f" < {METHOD_NAME} {result[:30]}...")
-        return result.strip()
+        logger.debug(f" << {METHOD_NAME} raw result: {result[:100]}...")
+
+        # Parse the JSON output
+        try:
+            json_output = json.loads(result)
+            commit_message = json_output.get("message", "").strip()
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse JSON from LLM output: {e}")
+            raise Exception("Failed to parse JSON from LLM output")
+
+        logger.debug(f" < {METHOD_NAME} commit_message: {commit_message[:100]}...")
+        return commit_message
     except Exception as e:
         message = f" E ERROR: Unexpected error, caused by: '{e}'."
         logger.error(message)
