@@ -101,7 +101,7 @@ def generate_commit_message(diff_text, model_name):
                         - "Implement password reset feature via email"
                         - "Upgrade project to use React 17"
 
-                        Important: Output only the commit message without any additional text or preamble. Especially no 'Here is a possible summary for a git commit message:'
+                        Important: Output ONLY the commit message without any additional text or preamble. Especially no 'Here is a possible summary for a git commit message:'
 
                         Here are the changes:
                         {diff}
