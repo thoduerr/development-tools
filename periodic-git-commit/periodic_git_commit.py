@@ -91,6 +91,8 @@ def generate_commit_message(diff_text, model_name):
             template="""Please summarize the following code changes into a clear and concise commit message. 
                         The commit message should accurately reflect the changes made and follow best practices.
 
+                        Return only the commit message, without any additional text or introduction.
+                        
                         Examples:
 
                         - "Fix login issue by correcting variable typo in authentication module"
