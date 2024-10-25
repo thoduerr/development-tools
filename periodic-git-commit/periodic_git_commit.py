@@ -7,12 +7,13 @@ import argparse
 import sys
 import logging
 import os
-import json
 
 # Import LangChain modules
-from langchain.llms import Ollama
+from langchain.llms import ChatOllama
 from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain.output_parsers import JsonOutputParser
+from langchain.schema import BasePromptTemplate
+from typing import Dict
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -81,27 +82,16 @@ def generate_commit_message(diff_text, model_name):
         temperature = 0.0  # Adjust as needed
         logger.debug(f" >> {METHOD_NAME} model_name: {model_name}, temperature: {temperature}")
 
-        llm = Ollama(
+        llm = ChatOllama(
             model=model_name,
-            base_url="http://localhost:11434",
+            format="json",
             temperature=temperature,
         )
 
-        # Updated prompt template
         prompt_template = PromptTemplate(
             input_variables=["diff"],
             template="""As a senior software engineer, generate a clear and concise git commit message summarizing the following code changes.
 The commit message should accurately reflect the changes made and follow best practices.
-
-Examples:
-
-- "Fix login issue by correcting variable typo in authentication module"
-- "Add unit tests for user registration functionality"
-- "Refactor database connection logic for improved performance"
-- "Update README with installation instructions"
-- "Remove unused import statements and clean up code style"
-- "Implement password reset feature via email"
-- "Upgrade project to use React 17"
 
 Return the commit message as a JSON object like {"message": "produced commit message"}. Do not include any additional text.
 
@@ -110,23 +100,16 @@ Here are the changes:
 """
         )
 
-        chain = LLMChain(llm=llm, prompt=prompt_template)
+        chain = prompt_template | llm | JsonOutputParser()
         inputs = {"diff": diff_text}
         logger.debug(f" >> {METHOD_NAME} inputs: {inputs}")
 
-        result = chain.run(inputs)
-        logger.debug(f" << {METHOD_NAME} raw result: {result[:100]}...")
+        result = chain.invoke(inputs)
+        logger.debug(f" < {METHOD_NAME} {result}")
 
-        # Parse the JSON output
-        try:
-            json_output = json.loads(result)
-            commit_message = json_output.get("message", "").strip()
-        except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse JSON from LLM output: {e}")
-            raise Exception("Failed to parse JSON from LLM output")
-
-        logger.debug(f" < {METHOD_NAME} commit_message: {commit_message[:100]}...")
+        commit_message = result.get("message", "").strip()
         return commit_message
+
     except Exception as e:
         message = f" E ERROR: Unexpected error, caused by: '{e}'."
         logger.error(message)
