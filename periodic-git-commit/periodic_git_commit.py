@@ -88,14 +88,22 @@ def generate_commit_message(diff_text, model_name):
 
         prompt_template = PromptTemplate(
             input_variables=["diff"],
-            template="Summarize the following changes for a short git commit message:\n\n " + \
-                "Examples: \n" + \
-                "- Added a new feature\n" + \
-                "- Fixed a bug in the code\n" + \
-                "- Updated documentation\n\n" + \
-                "Here is the diff on the\n" + \
-                "{diff}\n\n" + \
-                "No preamble required!"
+            template="""Please summarize the following code changes into a clear and concise commit message. 
+                        The commit message should accurately reflect the changes made and follow best practices.
+
+                        Examples:
+
+                        - "Fix login issue by correcting variable typo in authentication module"
+                        - "Add unit tests for user registration functionality"
+                        - "Refactor database connection logic for improved performance"
+                        - "Update README with installation instructions"
+                        - "Remove unused import statements and clean up code style"
+                        - "Implement password reset feature via email"
+                        - "Upgrade project to use React 17"
+
+                        Here are the changes:
+                        {diff}
+                        """
         )
 
         chain = LLMChain(llm=llm, prompt=prompt_template)
