@@ -113,6 +113,8 @@ def generate_commit_message(diff_text, model_name):
         logger.debug(f" >> {METHOD_NAME} inputs: {inputs}")
 
         result = chain.run(inputs)
+        result = result.replace("\"", "")
+        
         logger.debug(f" < {METHOD_NAME} {result[:30]}...")
         return result.strip()
     except Exception as e:
