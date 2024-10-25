@@ -94,7 +94,8 @@ def generate_commit_message(diff_text, model_name):
                 "- Fixed a bug in the code\n" + \
                 "- Updated documentation\n\n" + \
                 "Here is the diff on the\n" + \
-                "{diff}"
+                "{diff}\n\n" + \
+                "No preamble required!"
         )
 
         chain = LLMChain(llm=llm, prompt=prompt_template)
