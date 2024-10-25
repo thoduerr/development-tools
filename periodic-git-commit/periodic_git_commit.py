@@ -93,6 +93,16 @@ def generate_commit_message(diff_text, model_name):
             template="""As a senior software engineer, generate a clear and concise git commit message summarizing the following code changes.
 The commit message should accurately reflect the changes made and follow best practices.
 
+Examples:
+
+- "Fix login issue by correcting variable typo in authentication module"
+- "Add unit tests for user registration functionality"
+- "Refactor database connection logic for improved performance"
+- "Update README with installation instructions"
+- "Remove unused import statements and clean up code style"
+- "Implement password reset feature via email"
+- "Upgrade project to use React 17"
+
 Return the commit message as a JSON object like {"message": "produced commit message"}. Do not include any additional text.
 
 Here are the changes:
