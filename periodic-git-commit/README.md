@@ -154,17 +154,19 @@ PREFIX_REGEX=(TASK-\d+)
 
 Run the script:
 
-bash
-Copy code
+```bash
 ./periodic_git_commit.py
+```
+
 The script will:
 
-Wait for the specified period.
-Extract TASK-123456 as the ticket ID.
-Stage all changes in the repository.
-Generate a commit message based on the staged changes, ensuring that only the commit message is returned without any additional text.
-Commit the staged changes to your repository with the message [TASK-123456] <commit_message>.
-Troubleshooting
+1. Wait for the specified period.
+2. Extract `TASK-123456` as the ticket ID.
+3. Stage all changes in the repository.
+4. Generate a commit message based on the staged changes, ensuring that only the commit message is returned without any additional text.
+5. Commit the staged changes to your repository with the message `[TASK-123456] <commit_message>`.
+
+## Troubleshooting
 
 ModuleNotFoundError: Ensure you have installed all required Python packages:
 bash
