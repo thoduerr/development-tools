@@ -29,7 +29,7 @@ cd your-repo
 
 #### Install Ollama
 
-Visit the Ollama website and follow the installation instructions for your operating system.
+Visit the `Ollama website` and follow the installation instructions for your operating system.
 
 #### Install the Llama Model
 
