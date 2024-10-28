@@ -108,7 +108,8 @@ Command-line arguments override environment variables:
 - `period`: (Optional) The time in seconds between commits. Overrides PERIOD environment variable.
 - `--prefix-regex`: (Optional) A regular expression to extract the ticket ID from the branch name. Overrides PREFIX_REGEX environment variable.
 - `--model-name`: (Optional) The name of the Ollama model to use for generating commit messages. Overrides OLLAMA_LLM_MODEL_NAME environment variable.
-How It Works
+
+## How It Works
 
 1. Configuration: The script loads configuration from environment variables or a .env file.
 2. Periodically Executes: The script sleeps for the specified period before each execution.
