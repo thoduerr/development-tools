@@ -66,9 +66,6 @@ You can configure the script using environment variables. You can set these vari
 
 Available Environment Variables
 LOG_LEVEL: Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default is DEBUG.
-LOG_HANDLER: Set to file to log to a file or stream to log to the console. Default is stream.
-LOG_FILE: If LOG_HANDLER is file, set the filename. Default is app.log.
-LOG_FORMAT: Set the logging format. Default is '%(asctime)s [%(levelname)s] %(message)s'.
 OLLAMA_BASE_URL: Base URL for the Ollama LLM. Default is http://localhost:11434.
 TEMPERATURE: Temperature parameter for the LLM. Default is 0.0.
 MODEL_NAME: Default model name for the LLM. Default is 'llama3.1:8b'.
@@ -79,9 +76,6 @@ env
 Copy code
 # Logging configuration
 LOG_LEVEL=INFO
-LOG_HANDLER=file
-LOG_FILE=commit_script.log
-LOG_FORMAT=%(asctime)s %(levelname)s %(message)s
 
 # Ollama configuration
 OLLAMA_BASE_URL=http://localhost:11434
