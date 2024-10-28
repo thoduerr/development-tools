@@ -5,7 +5,7 @@ This Python script automates periodic commits to your Git repository, generating
 ## Features
 
 - **Periodic Commits**: Automatically commit changes at user-defined intervals.
-- **Intelligent Commit Messages**: Uses AI to generate descriptive commit messages based on your staged code changes.
+- **Intelligent Commit Messages**: Uses local AI to generate descriptive commit messages based on your staged code changes.
 - **Customizable Configuration via Environment Variables**: Configure various aspects of the script using environment variables or a `.env` file.
 - **Detailed Logging**: Entry and exit logs for all methods, including parameters and results.
 
