@@ -125,8 +125,9 @@ Examples:
 
 Important: Output ONLY the commit message without any additional text or preamble. Especially no 'Here is a possible summary for a git commit message:'
 
-Here are the changes:
+<CHANGES>
 {diff}
+</CHANGES>
 """
         )
 
