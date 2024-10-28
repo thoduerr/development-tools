@@ -54,11 +54,13 @@ Then install the dependencies:
 pip install -r requirements.txt
 ```
 
-1. Make the Script Executable
-bash
-Copy code
+### 4. Make the Script Executable
+
+```bash
 chmod +x periodic_git_commit.py
-Configuration
+```
+
+## Configuration
 
 You can configure the script using environment variables. You can set these variables directly in your environment or by creating a .env file in the same directory as the script.
 
