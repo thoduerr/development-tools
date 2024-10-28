@@ -41,16 +41,6 @@ ollama pull llama3.1:8b
 
 ### 3. Install Python Dependencies
 
-Create a `requirements.txt` file with the following content:
-
-```text
-langchain
-langchain-ollama
-python-dotenv
-```
-
-Then install the dependencies:
-
 ```bash
 pip install -r requirements.txt
 ```
