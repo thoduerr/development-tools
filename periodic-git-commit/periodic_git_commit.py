@@ -7,6 +7,10 @@ import argparse
 import sys
 import logging
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Import LangChain modules
 from langchain_community.llms import Ollama
@@ -15,9 +19,23 @@ from langchain.chains import LLMChain
 
 # Configure logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)  # Adjust the logging level as needed
-handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
+
+# Set logging level from environment variable or default to DEBUG
+log_level = os.getenv("LOG_LEVEL", "DEBUG").upper()
+numeric_log_level = getattr(logging, log_level, logging.DEBUG)
+logger.setLevel(numeric_log_level)
+
+# Set logging handler
+log_handler = os.getenv("LOG_HANDLER", "stream").lower()
+if log_handler == "file":
+    log_file = os.getenv("LOG_FILE", "app.log")
+    handler = logging.FileHandler(log_file)
+else:
+    handler = logging.StreamHandler()
+
+# Set logging format
+log_format = os.getenv("LOG_FORMAT", '%(asctime)s [%(levelname)s] %(message)s')
+formatter = logging.Formatter(log_format)
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
@@ -77,35 +95,39 @@ def generate_commit_message(diff_text, model_name):
         logger.debug(f" < {METHOD_NAME} {message}")
         return message
     try:
-        temperature = 0.0  # Adjust as needed
+        # Get temperature from environment variable or default to 0.0
+        temperature = float(os.getenv("TEMPERATURE", "0.0"))
         logger.debug(f" >> {METHOD_NAME} model_name: {model_name}, temperature: {temperature}")
+
+        # Get base_url from environment variable or default to "http://localhost:11434"
+        base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
         llm = Ollama(
             model=model_name,
-            base_url="http://localhost:11434",
+            base_url=base_url,
             temperature=temperature,
         )
 
         prompt_template = PromptTemplate(
             input_variables=["diff"],
             template="""Please summarize the following code changes into a clear and concise commit message. 
-                        The commit message should accurately reflect the changes made and follow best practices.
-                        
-                        Examples:
+The commit message should accurately reflect the changes made and follow best practices.
 
-                        - "Fix login issue by correcting variable typo in authentication module"
-                        - "Add unit tests for user registration functionality"
-                        - "Refactor database connection logic for improved performance"
-                        - "Update README with installation instructions"
-                        - "Remove unused import statements and clean up code style"
-                        - "Implement password reset feature via email"
-                        - "Upgrade project to use React 17"
+Examples:
 
-                        Important: Output ONLY the commit message without any additional text or preamble. Especially no 'Here is a possible summary for a git commit message:'
+- "Fix login issue by correcting variable typo in authentication module"
+- "Add unit tests for user registration functionality"
+- "Refactor database connection logic for improved performance"
+- "Update README with installation instructions"
+- "Remove unused import statements and clean up code style"
+- "Implement password reset feature via email"
+- "Upgrade project to use React 17"
 
-                        Here are the changes:
-                        {diff}
-                        """
+Important: Output ONLY the commit message without any additional text or preamble. Especially no 'Here is a possible summary for a git commit message:'
+
+Here are the changes:
+{diff}
+"""
         )
 
         chain = LLMChain(llm=llm, prompt=prompt_template)
@@ -150,14 +172,14 @@ def main():
     METHOD_NAME = "main"
     logger.debug(f" > {METHOD_NAME}")
     parser = argparse.ArgumentParser(description='Periodic Git Commit Script')
-    parser.add_argument('period', type=int, help='Period in seconds between commits')
-    parser.add_argument('--prefix-regex', type=str, default=r'(INSTA-\d+)',
+    parser.add_argument('period', type=int, nargs='?', default=os.getenv("PERIOD", 3600), help='Period in seconds between commits')
+    parser.add_argument('--prefix-regex', type=str, default=os.getenv("PREFIX_REGEX", r'(INSTA-\d+)'),
                         help='Regular expression to extract ticket ID from branch name')
-    parser.add_argument('--model-name', type=str, default='llama3.1:8b',
-                        help='Name of the Ollama model to use (default: llama3.1:8b)')
+    parser.add_argument('--model-name', type=str, default=os.getenv("MODEL_NAME", 'llama3.1:8b'),
+                        help='Name of the Ollama model to use (default from environment variable or "llama3.1:8b")')
     args = parser.parse_args()
 
-    period = args.period
+    period = int(args.period)
     prefix_regex = args.prefix_regex
     model_name = args.model_name
 
