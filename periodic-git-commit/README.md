@@ -138,8 +138,7 @@ Logs can be configured to output to the console or a file, with customizable for
 
 Suppose you're on branch TASK-123456-fix-bug and have the following .env file:
 
-env
-Copy code
+```env
 # Logging configuration
 LOG_LEVEL=INFO
 
@@ -151,6 +150,8 @@ OLLAMA_LLM_MODEL_NAME=llama3.1:8b
 # Script configuration
 PERIOD=1800
 PREFIX_REGEX=(TASK-\d+)
+```
+
 Run the script:
 
 bash
