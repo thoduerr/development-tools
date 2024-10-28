@@ -59,10 +59,10 @@ Available Environment Variables
 
 - LOG_LEVEL: Set the logging level (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`). Default is `INFO`.
 - OLLAMA_BASE_URL: Base URL for the Ollama LLM. Default is http://localhost:11434.
-- OLLAMA_LLM_TEMPERATURE: OLLAMA_LLM_TEMPERATURE parameter for the LLM. Default is 0.0.
-- OLLAMA_LLM_MODEL_NAME: Default model name for the LLM. Default is 'llama3.1:8b'.
-- PERIOD: Default period in seconds between commits. Default is 60 (1 minute).
-- PREFIX_REGEX: Default regular expression to extract the ticket ID from the branch name. Default is '(TASK-\d+)'.
+- OLLAMA_LLM_TEMPERATURE: OLLAMA_LLM_TEMPERATURE parameter for the LLM. Default is `0.0`.
+- OLLAMA_LLM_MODEL_NAME: Default model name for the LLM. Default is `llama3.1:8b`.
+- PERIOD: Default period in seconds between commits. Default is `60` (1 minute).
+- PREFIX_REGEX: Default regular expression to extract the ticket ID from the branch name. Default is `(TASK-\d+)`.
 
 Example .env File
 
