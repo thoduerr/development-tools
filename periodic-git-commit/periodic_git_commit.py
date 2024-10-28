@@ -21,7 +21,7 @@ from langchain.chains import LLMChain
 logger = logging.getLogger(__name__)
 
 # Set logging level from environment variable or default to DEBUG
-log_level = os.getenv("LOG_LEVEL", "DEBUG").upper()
+log_level = os.getenv("LOG_LEVEL", "INFO").upper()
 numeric_log_level = getattr(logging, log_level, logging.DEBUG)
 logger.setLevel(numeric_log_level)
 
