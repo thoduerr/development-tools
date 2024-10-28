@@ -173,7 +173,7 @@ def main():
     METHOD_NAME = "main"
     logger.debug(f" > {METHOD_NAME}")
     parser = argparse.ArgumentParser(description='Periodic Git Commit Script')
-    parser.add_argument('period', type=int, nargs='?', default=os.getenv("PERIOD", 3600), help='Period in seconds between commits')
+    parser.add_argument('period', type=int, nargs='?', default=os.getenv("PERIOD", 60), help='Period in seconds between commits')
     parser.add_argument('--prefix-regex', type=str, default=os.getenv("PREFIX_REGEX", r'(INSTA-\d+)'),
                         help='Regular expression to extract ticket ID from branch name')
     parser.add_argument('--model-name', type=str, default=os.getenv("OLLAMA_LLM_MODEL_NAME", 'llama3.1:8b'),
