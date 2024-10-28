@@ -65,15 +65,17 @@ chmod +x periodic_git_commit.py
 You can configure the script using environment variables. You can set these variables directly in your environment or by creating a .env file in the same directory as the script.
 
 Available Environment Variables
-LOG_LEVEL: Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default is DEBUG.
-OLLAMA_BASE_URL: Base URL for the Ollama LLM. Default is http://localhost:11434.
-OLLAMA_LLM_TEMPERATURE: OLLAMA_LLM_TEMPERATURE parameter for the LLM. Default is 0.0.
-OLLAMA_LLM_MODEL_NAME: Default model name for the LLM. Default is 'llama3.1:8b'.
-PERIOD: Default period in seconds between commits. Default is 3600 (1 hour).
-PREFIX_REGEX: Default regular expression to extract the ticket ID from the branch name. Default is '(INSTA-\d+)'.
+
+- LOG_LEVEL: Set the logging level (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`). Default is DEBUG.
+- OLLAMA_BASE_URL: Base URL for the Ollama LLM. Default is http://localhost:11434.
+- OLLAMA_LLM_TEMPERATURE: OLLAMA_LLM_TEMPERATURE parameter for the LLM. Default is 0.0.
+- OLLAMA_LLM_MODEL_NAME: Default model name for the LLM. Default is 'llama3.1:8b'.
+- PERIOD: Default period in seconds between commits. Default is 60 (1 minute).
+- PREFIX_REGEX: Default regular expression to extract the ticket ID from the branch name. Default is '(INSTA-\d+)'.
+
 Example .env File
-env
-Copy code
+
+```env
 # Logging configuration
 LOG_LEVEL=INFO
 
@@ -83,24 +85,28 @@ OLLAMA_LLM_TEMPERATURE=0.1
 OLLAMA_LLM_MODEL_NAME=llama3.1:8b
 
 # Script configuration
-PERIOD=1800  # 30 minutes
+PERIOD=10   # 10 seconds
 PREFIX_REGEX=(TASK-\d+)
-Usage
+```
+
+## Usage
 
 Run the script with or without command-line arguments:
 
-bash
-Copy code
+```bash
 ./periodic_git_commit.py
+```
+
 Command-line arguments override environment variables:
 
-bash
-Copy code
+```bash
 ./periodic_git_commit.py 3600 --prefix-regex '(FEATURE-\d+)' --model-name 'llama3.1:8b'
-Command-Line Arguments
-period: (Optional) The time in seconds between commits. Overrides PERIOD environment variable.
---prefix-regex: (Optional) A regular expression to extract the ticket ID from the branch name. Overrides PREFIX_REGEX environment variable.
---model-name: (Optional) The name of the Ollama model to use for generating commit messages. Overrides OLLAMA_LLM_MODEL_NAME environment variable.
+```
+
+### Command-Line Arguments
+- `period`: (Optional) The time in seconds between commits. Overrides PERIOD environment variable.
+- `--prefix-regex`: (Optional) A regular expression to extract the ticket ID from the branch name. Overrides PREFIX_REGEX environment variable.
+- `--model-name`: (Optional) The name of the Ollama model to use for generating commit messages. Overrides OLLAMA_LLM_MODEL_NAME environment variable.
 How It Works
 
 Configuration: The script loads configuration from environment variables or a .env file.
