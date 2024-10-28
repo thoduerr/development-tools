@@ -67,7 +67,7 @@ You can configure the script using environment variables. You can set these vari
 Available Environment Variables
 LOG_LEVEL: Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL). Default is DEBUG.
 OLLAMA_BASE_URL: Base URL for the Ollama LLM. Default is http://localhost:11434.
-TEMPERATURE: Temperature parameter for the LLM. Default is 0.0.
+OLLAMA_LLM_TEMPERATURE: OLLAMA_LLM_TEMPERATURE parameter for the LLM. Default is 0.0.
 MODEL_NAME: Default model name for the LLM. Default is 'llama3.1:8b'.
 PERIOD: Default period in seconds between commits. Default is 3600 (1 hour).
 PREFIX_REGEX: Default regular expression to extract the ticket ID from the branch name. Default is '(INSTA-\d+)'.
@@ -79,7 +79,7 @@ LOG_LEVEL=INFO
 
 # Ollama configuration
 OLLAMA_BASE_URL=http://localhost:11434
-TEMPERATURE=0.1
+OLLAMA_LLM_TEMPERATURE=0.1
 MODEL_NAME=llama2
 
 # Script configuration
@@ -135,7 +135,7 @@ LOG_LEVEL=INFO
 
 # Ollama configuration
 OLLAMA_BASE_URL=http://localhost:11434
-TEMPERATURE=0.0
+OLLAMA_LLM_TEMPERATURE=0.0
 MODEL_NAME=llama3.1:8b
 
 # Script configuration

@@ -95,9 +95,9 @@ def generate_commit_message(diff_text, model_name):
         logger.debug(f" < {METHOD_NAME} {message}")
         return message
     try:
-        # Get temperature from environment variable or default to 0.0
-        temperature = float(os.getenv("TEMPERATURE", "0.0"))
-        logger.debug(f" >> {METHOD_NAME} model_name: {model_name}, temperature: {temperature}")
+        # Get OLLAMA_LLM_TEMPERATURE from environment variable or default to 0.0
+        OLLAMA_LLM_TEMPERATURE = float(os.getenv("OLLAMA_LLM_TEMPERATURE", "0.0"))
+        logger.debug(f" >> {METHOD_NAME} model_name: {model_name}, OLLAMA_LLM_TEMPERATURE: {OLLAMA_LLM_TEMPERATURE}")
 
         # Get base_url from environment variable or default to "http://localhost:11434"
         base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
@@ -105,7 +105,7 @@ def generate_commit_message(diff_text, model_name):
         llm = Ollama(
             model=model_name,
             base_url=base_url,
-            temperature=temperature,
+            OLLAMA_LLM_TEMPERATURE=OLLAMA_LLM_TEMPERATURE,
         )
 
         prompt_template = PromptTemplate(
