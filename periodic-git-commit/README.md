@@ -100,7 +100,7 @@ Run the script with or without command-line arguments:
 Command-line arguments override environment variables:
 
 ```bash
-./periodic_git_commit.py 60 --prefix-regex '(FEATURE-\d+)' --model-name 'llama3.1:8b'
+./periodic_git_commit.py 10 --prefix-regex '(FEATURE-\d+)' --model-name 'llama3.1:8b'
 ```
 
 ### Command-Line Arguments
