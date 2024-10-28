@@ -40,7 +40,8 @@ ollama pull llama3.1:8b
 ```
 
 ### 3. Install Python Dependencies
-Create a requirements.txt file with the following content:
+
+Create a `requirements.txt` file with the following content:
 
 ```text
 langchain
