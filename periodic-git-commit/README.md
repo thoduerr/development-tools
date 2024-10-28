@@ -21,8 +21,8 @@ This Python script automates periodic commits to your Git repository, generating
 ### 1. Clone the Repository
 
 ```bash
-git clone https://your-repo-url.git
-cd your-repo
+git clone https://github.com/thoduerr/development-tools.git
+cd development-tools
 ```
 
 ### 2. Install Ollama and the Llama Model
