@@ -1,8 +1,20 @@
 # development-tools
 
+## Usage
+
+```bash
+source commands.sh
+```
+
 ## Periodic Git Commit
 
 This Python script automates periodic commits to your Git repository, generating meaningful commit messages based on your staged changes using Generative AI. It utilizes LangChain's Ollama integration and includes detailed logging for debugging and monitoring purposes.
+
+### Command
+
+```bash
+periodic_git_commits
+```
 
 ### Features
 
