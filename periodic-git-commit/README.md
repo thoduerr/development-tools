@@ -80,7 +80,7 @@ LOG_LEVEL=INFO
 # Ollama configuration
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_LLM_TEMPERATURE=0.1
-OLLAMA_LLM_MODEL_NAME=llama2
+OLLAMA_LLM_MODEL_NAME=llama3.1:8b
 
 # Script configuration
 PERIOD=1800  # 30 minutes
