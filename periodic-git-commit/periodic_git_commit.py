@@ -176,7 +176,7 @@ def main():
     parser.add_argument('period', type=int, nargs='?', default=os.getenv("PERIOD", 3600), help='Period in seconds between commits')
     parser.add_argument('--prefix-regex', type=str, default=os.getenv("PREFIX_REGEX", r'(INSTA-\d+)'),
                         help='Regular expression to extract ticket ID from branch name')
-    parser.add_argument('--model-name', type=str, default=os.getenv("MODEL_NAME", 'llama3.1:8b'),
+    parser.add_argument('--model-name', type=str, default=os.getenv("OLLAMA_LLM_MODEL_NAME", 'llama3.1:8b'),
                         help='Name of the Ollama model to use (default from environment variable or "llama3.1:8b")')
     args = parser.parse_args()
 
