@@ -168,19 +168,23 @@ The script will:
 
 ## Troubleshooting
 
-ModuleNotFoundError: Ensure you have installed all required Python packages:
-bash
-Copy code
-pip install -r requirements.txt
-Error getting current branch: Ensure you're inside a Git repository.
-Could not extract ticket ID from branch name: Make sure your branch name matches the provided regular expression.
-Error generating commit message: Verify that Ollama is installed, the specified model is correctly set up, and the necessary Python packages are installed.
-Nothing to commit: There are no staged changes to commit; the script will wait for the next interval.
-Security Considerations
+- ModuleNotFoundError: Ensure you have installed all required Python packages:
 
-The script uses subprocess.run with check=True and text=True for secure command execution.
-Inputs and outputs are handled carefully to prevent injection attacks.
-Regular expressions provided via command-line arguments or environment variables are used cautiously to avoid security risks.
-License
+```bash
+pip install -r requirements.txt
+```
+
+- Error getting current branch: Ensure you're inside a Git repository.
+- Could not extract ticket ID from branch name: Make sure your branch name matches the provided regular expression.
+- Error generating commit message: Verify that Ollama is installed, the specified model is correctly set up, and the necessary Python packages are installed.
+- Nothing to commit: There are no staged changes to commit; the script will wait for the next interval.
+
+## Security Considerations
+
+- The script uses subprocess.run with check=True and text=True for secure command execution.
+- Inputs and outputs are handled carefully to prevent injection attacks.
+- Regular expressions provided via command-line arguments or environment variables are used cautiously to avoid security risks.
+
+## License
 
 This project is licensed under the MIT License.
