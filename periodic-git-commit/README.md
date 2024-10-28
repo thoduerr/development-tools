@@ -128,12 +128,13 @@ Command-line arguments override environment variables:
 
 The script includes detailed logging for each method:
 
-Entry Logs: Display method name and input parameters.
-Exit Logs: Display method name and output results (if available).
-Error Logs: Capture and display errors with detailed messages.
+- Entry Logs: Display method name and input parameters.
+- Exit Logs: Display method name and output results (if available).
+- Error Logs: Capture and display errors with detailed messages.
+
 Logs can be configured to output to the console or a file, with customizable formats and levels.
 
-Example
+## Example
 
 Suppose you're on branch TASK-123456-fix-bug and have the following .env file:
 
