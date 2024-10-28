@@ -45,7 +45,7 @@ ollama pull llama3.1:8b
 pip install -r requirements.txt
 ```
 
-### 4. Make the Script Executable
+### 4. Ensure the Script Executable
 
 ```bash
 chmod +x periodic_git_commit.py
