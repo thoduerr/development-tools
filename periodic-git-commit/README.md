@@ -136,7 +136,7 @@ Logs can be configured to output to the console or a file, with customizable for
 
 ## Example
 
-Suppose you're on branch TASK-123456-fix-bug and have the following .env file:
+Suppose you're on branch `TASK-123456-fix-bug` and have the following `.env` file:
 
 ```env
 # Logging configuration
