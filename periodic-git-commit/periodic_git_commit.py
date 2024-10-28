@@ -111,7 +111,7 @@ def generate_commit_message(diff_text, model_name):
         prompt_template = PromptTemplate(
             input_variables=["diff"],
             template="""Please summarize the following code changes into a clear and concise commit message. 
-The commit message should accurately reflect the changes made and follow best practices.
+The commit message should accurately reflect the changes made and follow best practices in less that 15 words.
 
 Examples:
 
@@ -123,7 +123,7 @@ Examples:
 - "Implement password reset feature via email"
 - "Upgrade project to use React 17"
 
-Important: Output ONLY the commit message without any additional text or preamble. Especially no 'Here is a possible summary for a git commit message:'
+Important: Output ONLY the commit message without any additional text or preamble.'
 
 <CHANGES>
 {diff}
