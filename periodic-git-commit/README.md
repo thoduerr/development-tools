@@ -109,19 +109,20 @@ Command-line arguments override environment variables:
 - `--model-name`: (Optional) The name of the Ollama model to use for generating commit messages. Overrides OLLAMA_LLM_MODEL_NAME environment variable.
 How It Works
 
-Configuration: The script loads configuration from environment variables or a .env file.
-Periodically Executes: The script sleeps for the specified period before each execution.
-Extracts Ticket ID:
-Reads the current Git branch name.
-Uses the provided regular expression to extract the ticket ID.
-Stages All Changes: Uses git add . to stage all changes.
-Generates Commit Message:
-Performs a git diff --cached to get the diff of staged changes.
-Sends the diff to the specified Ollama model via LangChain's Ollama integration to generate a descriptive commit message.
-The prompt template instructs the model to return only the commit message without any additional text or introduction.
-Commits Changes:
-Commits the staged changes with the message "[<ticket_id>] <generated_message>".
-Logging
+1. Configuration: The script loads configuration from environment variables or a .env file.
+2. Periodically Executes: The script sleeps for the specified period before each execution.
+3. Extracts Ticket ID:
+   - Reads the current Git branch name.
+   - Uses the provided regular expression to extract the ticket ID.
+4. Stages All Changes: Uses `git add .` to stage all changes.
+5. Generates Commit Message:
+   - Performs a `git diff --cached` to get the diff of staged changes.
+   - Sends the diff to the specified Ollama model via LangChain's Ollama integration to generate a descriptive commit message.
+   - The prompt template instructs the model to return only the commit message without any additional text or introduction.
+6. Commits Changes:
+   - Commits the staged changes with the message "[<ticket_id>] <generated_message>".
+
+## Logging
 
 The script includes detailed logging for each method:
 
