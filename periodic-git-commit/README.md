@@ -16,6 +16,12 @@ This Python script automates periodic commits to your Git repository, generating
 - **Ollama** installed locally with your desired model.
 - **Python Packages**: Install via `pip install -r requirements.txt`
 
+```zsh
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+```
+
 ## Installation
 
 ### 1. Clone the Repository

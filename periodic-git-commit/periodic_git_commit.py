@@ -63,11 +63,16 @@ def extract_ticket_id(branch_name, prefix_regex):
     match = re.match(prefix_regex, branch_name)
     if match:
         ticket_id = match.group(1)
-        logger.debug(f" < {METHOD_NAME} {ticket_id}")
-        return ticket_id
+        result = ticket_id
+    elif branch_name == "main":
+        logger.warning(f" W {METHOD_NAME} special use case - {branch_name}")
+        result = "main"
     else:
         logger.error("Could not extract ticket ID from branch name.")
         sys.exit(1)
+        
+    logger.debug(f" < {METHOD_NAME} {result}")
+    return result
 
 def get_git_diff():
     METHOD_NAME = "get_git_diff"
